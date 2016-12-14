@@ -26,6 +26,15 @@ apt-get -y install mysql-server libapache2-mod-auth-mysql
 # Installing PHP and it's dependencies
 apt-get -y install php5 libapache2-mod-php5 php5-mcrypt curl php5-curl php5-mysql php5-intl
 
+# Download and configure 'adminer.php' to manage the MySQL database
+if [ ! -f /usr/share/adminer.php ]; then
+    wget -q -O adminer.php https://www.adminer.org/static/download/4.2.5/adminer-4.2.5-en.php
+    mv adminer.php /usr/share/adminer.php
+    
+    # Create an alias for adminer, example: http://localhost:4000/adminer 
+    echo "alias /adminer '/usr/share/adminer.php'" >> /etc/apache2/sites-available/000-default.conf
+fi
+
 # Restart Apache
 service apache2 restart
 
