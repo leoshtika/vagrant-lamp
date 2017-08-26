@@ -44,6 +44,9 @@ if [ ! -f /usr/local/bin/composer ]; then
     mv composer.phar /usr/local/bin/composer
 fi
 
+# Add an alias for codecept
+# echo "alias codecept='php /vagrant/vendor/bin/codecept'" >> /home/vagrant/.bashrc
+
 echo "================================"
 echo "Your LAMP stack is ready for use"
 echo "================================"
