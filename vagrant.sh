@@ -61,6 +61,8 @@ service apache2 restart
 # Add an alias for codecept
 echo "alias codecept='php /vagrant/vendor/bin/codecept'" >> /home/vagrant/.bashrc
 
-echo "================================"
+echo "=========================================="
 echo "Your LAMP stack is ready for use"
-echo "================================"
+echo "Open http://localhost:4000 in your browser"
+echo "Use http://localhost:4000/adminer for the DB (username: root, password: pass123)"
+echo "=========================================="
