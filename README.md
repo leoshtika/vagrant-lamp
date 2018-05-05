@@ -11,6 +11,11 @@ Usage
 -----
 - Clone this repository into your project
 - Run `vagrant up`
-- Open `http://localhost:4000` in your browser. 'Adminer' is available here `http://localhost:4000/adminer` (username: root, password: pass123)
+
+Important info
+--------------
+- URL: `http://localhost:4000`
+- MySQL: `http://localhost:4000/adminer` (username: root, password: pass123)
+- Synced folder: `vagrant ssh` & `cd /vagrant`
 
 Enjoy!

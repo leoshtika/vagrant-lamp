@@ -33,9 +33,11 @@ apt-get -y install mysql-server libapache2-mod-auth-mysql
 # apt-get -y install php5 libapache2-mod-php5 php5-mcrypt curl php5-curl php5-mysql
 # PHP 5.6 (from ppa:ondrej/php)
 # apt-get -y install php5.6 libapache2-mod-php5.6 php5.6-mcrypt curl php5.6-curl php5.6-mysql
-
 # PHP 7.0 (from ppa:ondrej/php)
 apt-get -y install php7.0 libapache2-mod-php7.0 php7.0-mcrypt curl php7.0-curl php7.0-gd php7.0-intl php7.0-mysql php7.0-mbstring php7.0-xml php7.0-zip php7.0-xdebug
+
+# Configure PHP
+sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.0/apache2/php.ini
 
 # Increase nesting functions calls limit for xdebug
 echo "xdebug.max_nesting_level=500" >> /etc/php/7.0/apache2/conf.d/20-xdebug.ini
@@ -61,8 +63,9 @@ service apache2 restart
 # Add an alias for codecept
 echo "alias codecept='php /vagrant/vendor/bin/codecept'" >> /home/vagrant/.bashrc
 
-echo "=========================================="
-echo "Your LAMP stack is ready for use"
-echo "Open http://localhost:4000 in your browser"
-echo "Use http://localhost:4000/adminer for the DB (username: root, password: pass123)"
-echo "=========================================="
+echo "============================================"
+echo "Your development LAMP stack is ready"
+echo "URL: http://localhost:4000"
+echo "MySQL: http://localhost:4000/adminer (username: root, password: pass123)"
+echo "Synced folder: 'vagrant ssh' & 'cd /vagrant'"
+echo "============================================"
