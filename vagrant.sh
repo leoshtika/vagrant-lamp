@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Add repository for PHP (5.6 || 7.0)
+# Add repository for PHP (5.6 || 7.0 || 7.2)
 add-apt-repository ppa:ondrej/php
 
 # Update the list of available packages
@@ -34,17 +34,16 @@ apt-get -y install mysql-server libapache2-mod-auth-mysql
 # PHP 5.6 (from ppa:ondrej/php)
 # apt-get -y install php5.6 libapache2-mod-php5.6 php5.6-mcrypt curl php5.6-curl php5.6-mysql
 # PHP 7.0 (from ppa:ondrej/php)
-apt-get -y install php7.0 libapache2-mod-php7.0 php7.0-mcrypt curl php7.0-curl php7.0-gd php7.0-intl php7.0-mysql php7.0-mbstring php7.0-xml php7.0-zip php7.0-xdebug
+# apt-get -y install php7.2 libapache2-mod-php7.2 php7.2-mcrypt curl php7.2-curl php7.2-gd php7.2-intl php7.2-mysql php7.2-mbstring php7.2-xml php7.2-zip
+# PHP 7.2 (from ppa:ondrej/php)
+apt-get install -y php7.2 php7.2-curl php7.2-gd php7.2-mbstring php7.2-zip php7.2-xml php7.2-mysql php7.2-intl
 
 # Configure PHP
-sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.0/apache2/php.ini
-
-# Increase nesting functions calls limit for xdebug
-echo "xdebug.max_nesting_level=500" >> /etc/php/7.0/apache2/conf.d/20-xdebug.ini
+sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.2/apache2/php.ini
 
 # Download and configure 'adminer.php' to manage the MySQL database
 if [ ! -f /usr/share/adminer.php ]; then
-    wget -q -O adminer.php https://github.com/vrana/adminer/releases/download/v4.3.1/adminer-4.3.1.php
+    wget -q -O adminer.php https://github.com/vrana/adminer/releases/download/v4.7.0/adminer-4.7.0-mysql.php
     mv adminer.php /usr/share/adminer.php
     
     # Create an alias for adminer, example: http://localhost:4000/adminer 
