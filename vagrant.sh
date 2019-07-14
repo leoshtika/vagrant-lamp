@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Add repository for PHP (5.6 || 7.0 || 7.2)
+# Add repository for PHP (7.2)
 add-apt-repository ppa:ondrej/php
 
 # Update the list of available packages
@@ -29,14 +29,7 @@ debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again pa
 apt-get -y install mysql-server libapache2-mod-auth-mysql
 
 # Installing PHP and it's dependencies
-# PHP 5.5 (this is the default and don't need ppa:ondrej/php)
-# apt-get -y install php5 libapache2-mod-php5 php5-mcrypt curl php5-curl php5-mysql
-# PHP 5.6 (from ppa:ondrej/php)
-# apt-get -y install php5.6 libapache2-mod-php5.6 php5.6-mcrypt curl php5.6-curl php5.6-mysql
-# PHP 7.0 (from ppa:ondrej/php)
-# apt-get -y install php7.2 libapache2-mod-php7.2 php7.2-mcrypt curl php7.2-curl php7.2-gd php7.2-intl php7.2-mysql php7.2-mbstring php7.2-xml php7.2-zip
-# PHP 7.2 (from ppa:ondrej/php)
-apt-get install -y php7.2 php7.2-curl php7.2-gd php7.2-mbstring php7.2-zip php7.2-xml php7.2-mysql php7.2-intl
+apt-get -y install php7.2 libapache2-mod-php7.2 curl php7.2-curl php7.2-gd php7.2-mysql php7.2-mbstring php7.2-xml php7.2-zip php7.2-intl
 
 # Configure PHP
 sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.2/apache2/php.ini
