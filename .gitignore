@@ -6,3 +6,6 @@ Thumbs.db
 
 # Vagrant folder
 .vagrant
+
+# Ubuntu logs
+ubuntu-xenial-16.04-cloudimg-console.log

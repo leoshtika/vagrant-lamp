@@ -1,6 +1,6 @@
 Vagrant LAMP
 ============
-A simple Vagrant LAMP for development (Ubuntu 14.04 Trusty, Apache 2, MySQL 5.5, PHP 7.2)
+A simple Vagrant LAMP for development (Ubuntu 16.04 LTS (Xenial Xerus), Apache 2, PHP 7.2, MySQL 5.7)
 
 Prerequisites
 -------------

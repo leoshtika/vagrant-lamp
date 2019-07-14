@@ -23,10 +23,19 @@ sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOve
 # Enable Apache's mod_rewrite
 sudo a2enmod rewrite
 
-# Installing MySQL and it's dependencies, Also, setting up root password for MySQL as it will prompt to enter the password during installation
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password pass123'
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password pass123'
-apt-get -y install mysql-server libapache2-mod-auth-mysql
+# Install MySQL Server in a Non-Interactive mode. Default root password will be "pass123"
+echo "mysql-server-5.7 mysql-server/root_password password pass123" | sudo debconf-set-selections
+echo "mysql-server-5.7 mysql-server/root_password_again password pass123" | sudo debconf-set-selections
+apt-get install mysql-server -y
+
+# Change MySQL Listening IP Address from local 127.0.0.1 to All IPs 0.0.0.0
+sed -i 's/127\.0\.0\.1/0\.0\.0\.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
+
+# Update mysql Table root record to accept incoming remote connections
+mysql -uroot -proot -e 'USE mysql; UPDATE `user` SET `Host`="%" WHERE `User`="root" AND `Host`="localhost"; DELETE FROM `user` WHERE `Host` != "%" AND `User`="root"; FLUSH PRIVILEGES;'
+
+# Restart MySQL Service
+service mysql restart
 
 # Installing PHP and it's dependencies
 apt-get -y install php7.2 libapache2-mod-php7.2 curl php7.2-curl php7.2-gd php7.2-mysql php7.2-mbstring php7.2-xml php7.2-zip php7.2-intl
@@ -36,7 +45,7 @@ sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.2/apache2/php.
 
 # Download and configure 'adminer.php' to manage the MySQL database
 if [ ! -f /usr/share/adminer.php ]; then
-    wget -q -O adminer.php https://github.com/vrana/adminer/releases/download/v4.7.0/adminer-4.7.0-mysql.php
+    wget -q -O adminer.php https://github.com/vrana/adminer/releases/download/v4.7.1/adminer-4.7.1-mysql.php
     mv adminer.php /usr/share/adminer.php
     
     # Create an alias for adminer, example: http://localhost:4000/adminer 
