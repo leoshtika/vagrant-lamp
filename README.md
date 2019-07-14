@@ -9,7 +9,7 @@ Prerequisites
 
 Usage
 -----
-- Clone this repository into your project
+- Clone this repository or copy 'Vagrantfile' & 'vagrant.sh' files into your project folder
 - Run `vagrant up`
 
 Important info
