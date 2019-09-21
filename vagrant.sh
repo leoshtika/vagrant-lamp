@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
-# Add repository for PHP (7.2)
+# Add repository for PHP (7.3)
 add-apt-repository ppa:ondrej/php
 
 # Update the list of available packages
-apt-get -y update
+apt -y update
 
 # Install GIT
-apt-get install -y git
+apt install -y git
 
-# Installing Apache
-apt-get install -y apache2
+# Install Apache
+apt install -y apache2
 
 # Remove 'html' folder and add a symbolic link, only if it doesn't already exists
 if ! [ -L /var/www/html ]; then
@@ -26,7 +26,7 @@ sudo a2enmod rewrite
 # Install MySQL Server in a Non-Interactive mode. Default root password will be "pass123"
 echo "mysql-server-5.7 mysql-server/root_password password pass123" | sudo debconf-set-selections
 echo "mysql-server-5.7 mysql-server/root_password_again password pass123" | sudo debconf-set-selections
-apt-get install mysql-server -y
+apt install mysql-server -y
 
 # Change MySQL Listening IP Address from local 127.0.0.1 to All IPs 0.0.0.0
 sed -i 's/127\.0\.0\.1/0\.0\.0\.0/g' /etc/mysql/mysql.conf.d/mysqld.cnf
@@ -37,15 +37,15 @@ mysql -uroot -proot -e 'USE mysql; UPDATE `user` SET `Host`="%" WHERE `User`="ro
 # Restart MySQL Service
 service mysql restart
 
-# Installing PHP and it's dependencies
-apt-get -y install php7.2 libapache2-mod-php7.2 curl php7.2-curl php7.2-gd php7.2-mysql php7.2-mbstring php7.2-xml php7.2-zip php7.2-intl
+# Install PHP together with some of the most commonly used extensions
+apt -y install php7.3 libapache2-mod-php7.3 curl php7.3-curl php7.3-gd php7.3-imagick php7.3-mysql php7.3-mbstring php7.3-xml php7.3-zip php7.3-intl
 
 # Configure PHP
-sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.2/apache2/php.ini
+sed -i s/'display_errors = Off'/'display_errors = On'/ /etc/php/7.3/apache2/php.ini
 
 # Download and configure 'adminer.php' to manage the MySQL database
 if [ ! -f /usr/share/adminer.php ]; then
-    wget -q -O adminer.php https://github.com/vrana/adminer/releases/download/v4.7.1/adminer-4.7.1-mysql.php
+    wget -q -O adminer.php https://github.com/vrana/adminer/releases/download/v4.7.3/adminer-4.7.3-mysql.php
     mv adminer.php /usr/share/adminer.php
     
     # Create an alias for adminer, example: http://localhost:4000/adminer 
