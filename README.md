@@ -18,4 +18,8 @@ Important info
 - MySQL: `http://localhost:4000/adminer` (username: root, password: pass123)
 - Synced folder: `vagrant ssh` & `cd /vagrant`
 
+Optional applications
+---------------------
+- phpMyAdmin: SSH into the running VM using `vagrant ssh` and run `sudo apt install phpmyadmin`. MySQL password for root is: pass123
+
 Enjoy!
